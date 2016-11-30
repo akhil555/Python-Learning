@@ -1,0 +1,29 @@
+What you need to know about functions ?
+	1.Assign functions to variables
+	2.Define functions inside other functions
+		ex:def greet(name):
+			def get_message():
+				return "Hello "
+
+		result = get_message()+name
+		return result
+
+		print greet("John")
+	3.Functions can be passed as parameters to other functions
+		def greet(name):
+			return "Hello " + name 
+
+		def call_func(func):
+			other_name = "John"
+			return func(other_name)  
+
+		print call_func(greet)
+
+		# Outputs: Hello John
+	4.Functions can return other functions
+	5.Inner functions have access to the enclosing scope :
+		means ..if u have written a function inside a function ,then that function has access to the parameters of the outer functions.
+		even though the inner function do not have the paramters in its declaration.
+
+		
+Composition of Decorators :
