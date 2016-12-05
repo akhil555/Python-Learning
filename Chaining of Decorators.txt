@@ -1,0 +1,31 @@
+--------------------------------Chaining decorators-----------------------------------------
+
+Let’s explore one last feature of decorators today: chaining.
+ You can stack more than one decorator on any given function.
+ This can be used to construct functions in a way that is similar to how multiple inheritance can be used to construct classes.
+ It is probably best to avoid going crazy with this though.
+ 
+ @print_name('Sam')
+@logging_decorator
+def some_function():
+    print "I'm the wrapped function!"
+
+some_function()
+# >> My name is Sam
+# >> The function I modify has been called 1 time(s).
+# >> I'm the wrapped function!
+
+
+
+
+When you chain decorators, the order in which they are stacked is bottom to top. The function that is being wrapped, some_function, 
+is compiled and passed to the first decorator above it (logging_decorator).
+ Then the return value of that first decorator is passed to the second. And so it will continue for each decorator in the chain.
+ 
+ 
+ 
+ Conclusion
+
+I think one of the largest benefits of decorators is that they allow you to think at a slightly higher level of abstraction. If you begin to read a function definition and see that it has a memoize decorator, you will instantly understand that you’re looking at a memoized function. If the memoization code were included inside of the function body it would require extra mental parsing, and introduce possible misunderstanding. Using decorators also allows for code reuse, which can save time, ease debugging, and make refactoring easier.
+
+Playing with decorators is also a great way to learn about functional concepts like higher order functions and closures.
