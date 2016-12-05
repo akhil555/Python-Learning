@@ -1,0 +1,59 @@
+Command line Arguments :
+
+*args and **kwargs
+
+
+1.A python function can accept a variable number of positional arguments by using the *args syntax in its parameter list.
+ *args will combine all non-keyword arguments into a single tuple of arguments that can be accessed within the function. 
+Conversely, when *args is used in the argument list of a function invocation, it will expand a tuple of arguments out into a series of positional arguments.
+
+
+def function_with_many_arguments(*args):
+    print args
+
+# `args` within the function will be a tuple of any arguments we pass
+# which can be used within the function like any other tuple
+function_with_many_arguments('hello', 123, True)
+# >> ('hello', 123, True)
+
+
+
+def function_with_3_parameters(num, boolean, string):
+    print "num is " + str(num)
+    print "boolean is " + str(boolean)
+    print "string is " + string
+
+arg_list = [1, False, 'decorators']
+
+# arg_list will be expanded into 3 positional arguments by the `*` symbol
+function_with_3_parameters(*arg_list)
+# >> num is 1
+# >> boolean is False
+# >> string is decorators
+
+
+
+
+2.**kwargs behaves similarly to its brother, *args, but it works with keyword arguments instead of positional. 
+If **kwargs is used in a function parameter list, 
+it will collect as many extra keyword arguments the function has received and place them into a dictionary. 
+If used in a function argument list, it will expand a dictionary into a series of keyword arguments.
+
+
+def function_with_many_keyword_args(**kwargs):
+    print kwargs
+
+function_with_many_keyword_args(a='apples', b='bananas', c='cantalopes')
+# >> {'a': 'apples', 'b': 'bananas', 'c': 'cantalopes'}
+
+
+def multiply_name(count=0, name=''):
+    print name * count
+
+arg_dict = {'count': 3, 'name': 'Brian'}
+
+multiply_name(**arg_dict)
+# >> BrianBrianBrian
+
+
+

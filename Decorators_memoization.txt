@@ -1,0 +1,36 @@
+------------------------------Memoization----------------------------------------
+
+Memoization is a way to avoid repeating potentially expensive calculations. 
+You do this by caching the result of a function each time it runs. This way, the next time the function runs with the same arguments, 
+it will return the result from the cache, not having to calculate the result an additional time.
+
+
+from functools import wraps
+
+
+def memoize(func):
+    cache = {}
+
+    @wraps(func)
+    def wrapper(*args):
+        if args not in cache:
+            cache[args] = func(*args)
+        return cache[args]
+    return wrapper
+
+@memoize
+def an_expensive_function(arg1, arg2, arg3):
+    ...
+A side effect of using decorators is that the function that gets wrapped loses it’s natural __name__, __doc__, and __module__ attributes. 
+The wraps function is used as a decorator that wraps the function that a decorator returns,
+ restoring those three attributes to the values they would have if the wrapped function was not decorated. For instance:
+ an_expensive_function’s name (as seen by an_expensive_function.__name__) would have been ‘wrapper’ if we did not use the wraps decorator.
+ 
+ 
+ A decorator is a function that modifies functions, methods or classes.
+ 
+ 
+ I should note that memoization is only appropriate to use on pure functions.
+ That is a function that is guaranteed to always produce the same result given a certain set of arguments. 
+ If it is dependent upon global variables not passed as arguments, I/O, or anything else that might affect the return value,
+ memoization will produce confusing results! 

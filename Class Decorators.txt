@@ -1,0 +1,60 @@
+********************************************Class decorators********************************
+
+
+Originally, we said a decorator is a function that modifies another function, 
+but they can also be used to modify classes or methods.
+ It is not as common to decorate classes, 
+ but it can be useful tool in certain instances as an alternative to metaclasses.
+ 
+ 
+ foo = ['important', 'foo', 'stuff']
+
+
+def add_foo(klass):
+    klass.foo = foo
+    return klass
+
+
+@add_foo
+class Person(object):
+    pass
+
+brian = Person()
+
+print brian.foo
+# >> ['important', 'foo', 'stuff']
+
+
+Now any objects of class Person will have the super-important foo attribute! Notice that since we’re decorating a class, 
+our decorator doesn’t return a function, but naturally, a class. Let’s update our decorator definition:
+
+
+-----------------------------------------*-------------------------------
+	-+--------------------------------Decorators as classes-------------------------------------
+It turns out I withheld something else from you earlier.
+ Not only can a decorator decorate a class, a decorator can be a class! 
+ The only requirement of a decorator is that its return value must be callable. 
+ This means that it must implement the __call__ magic method, which gets called behind the scenes when you call an object.
+ Functions set this method implicitly of course
+
+ 
+ 
+ 
+ class IdentityDecorator(object):
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self):
+        self.func()
+
+
+@IdentityDecorator
+def a_function():
+    print "I'm a normal function."
+
+a_function()
+# >> I'm a normal function
+
+
+
+A decorator is a callable that modifies functions, methods or classes.
